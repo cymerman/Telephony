@@ -139,7 +139,12 @@ class SmsController(private val context: Context) {
         return Pair(sentPendingIntent, deliveredPendingIntent)
     }
 
-     private fun getSmsManager(): SmsManager {
+     private fun getSmsManager(subId: Int): SmsManager {
+        var subscriptionId = subId
+        if(subId == -1){
+            subscriptionId = SmsManager.getDefaultSmsSubscriptionId()
+        }
+         
         val subscriptionId = SmsManager.getDefaultSmsSubscriptionId()
         val smsManager : SmsManager?
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
